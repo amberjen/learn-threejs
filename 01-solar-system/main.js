@@ -25,24 +25,133 @@ const sun = new THREE.Mesh(sphereGeometry, sunMaterial);
 sun.scale.setScalar(5);
 scene.add(sun);
 
-// Earth
-const earthDistance = 10;
-const earthMaterial = new THREE.MeshBasicMaterial({
-  color: 'blue'
-});
-const earth = new THREE.Mesh(sphereGeometry, earthMaterial);
-earth.position.x = earthDistance;
-scene.add(earth);
-
-// Moon
-const moonDistance = 2;
-const moonMaterial = new THREE.MeshBasicMaterial({
-  color: 'wheat'
-});
-const moon = new THREE.Mesh(sphereGeometry, moonMaterial);
-moon.scale.setScalar(0.3);
-moon.position.x = moonDistance;
-earth.add(moon);
+const planets = [
+  // Inner planets
+  {
+    name: 'Mercury',
+    radius: 0.38,
+    distance: 8,
+    speed: 1.607,
+    material: mercuryMaterial,
+    moons: []
+  },
+  {
+    name: 'Venus',
+    radius: 0.95,
+    distance: 14,
+    speed: 1.174,
+    material: venusMaterial,
+    moons: []
+  },
+  {
+    name: 'Earth',
+    radius: 1,
+    distance: 20,
+    speed: 1,
+    material: earthMaterial,
+    moons: [
+      {
+        name: 'Moon',
+        radius: 0.27,
+        distance: 0.0514,
+        speed: 0.0343,
+      }
+    ]
+  },
+  {
+    name: 'Mars',
+    radius: 0.53,
+    distance: 30,
+    speed: 0.802,
+    material: marsMaterial,
+    moons: [
+      {
+        name: "Phobos",
+        radius: 2.12,
+        distance: 0.001254,
+        speed: 0.0717,
+      },
+      {
+        name: "Deimos",
+        radius: 1.18,
+        distance: 0.00314,
+        speed: 0.0454,
+      },
+    ]
+  },
+  // Outer planets
+  {
+    name: 'Jupiter',
+    radius: 10.97,
+    distance: 104,
+    speed: 0.434,
+    material: jupiterMaterial,
+    moons: [
+      // {
+      //   name: "Ganymede",
+      //   radius: 0.41,
+      //   distance: 0,
+      //   speed: 0,
+      // },
+      // {
+      //   name: "Callisto",
+      //   radius: 0.38,
+      //   distance: 0,
+      //   speed: 0,
+      // },
+      // {
+      //   name: "Io",
+      //   radius: 0.29,
+      //   distance: 0,
+      //   speed: 0,
+      // },
+      // {
+      //   name: "Europa",
+      //   radius: 0.25,
+      //   distance: 0,
+      //   speed: 0,
+      // },
+    ]
+  },
+  {
+    name: 'Saturn',
+    radius: 9.14,
+    distance: 190,
+    speed: 0.323,
+    material: saturnMaterial,
+    moons: [
+      // {
+      //   name: "Titan",
+      //   radius: 0.4,
+      //   distance: 0,
+      //   speed: 0,
+      // },
+    ]
+  },
+  {
+    name: 'Uranus',
+    radius: 3.98,
+    distance: 384,
+    speed: 0.228,
+    material: uranusMaterial,
+    moons: []
+  },
+  {
+    name: 'Neptune',
+    radius: 3.87,
+    distance: 601,
+    speed: 0.182,
+    material: neptuneMaterial,
+    moons: [
+      // {
+      //   name: "Triton",
+      //   radius: 0.21,
+      //   distance: 0,
+      //   speed: 0,
+      // },
+    ]
+  },
+];
 
 
 // -----------------------------------------
@@ -89,21 +198,7 @@ window.addEventListener('resize', () => {
 // -----------------------------------------
 // Render the scene
 // -----------------------------------------
-
-// Initialize the clock
-const clock = new THREE.Clock();
-
 const renderloop = () => {
-  
-  const elapsedTIme = clock.getElapsedTime();
-  
-  // Add orbit animation
-  earth.rotation.y += 0.01;
-  earth.position.x = Math.sin(elapsedTIme) * earthDistance;
-  earth.position.z = Math.cos(elapsedTIme) * earthDistance;
-
-  moon.position.x = Math.sin(elapsedTIme) * moonDistance;
-  moon.position.z = Math.cos(elapsedTIme) * moonDistance;
 
   window.requestAnimationFrame(renderloop);
   controls.update();
