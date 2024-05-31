@@ -26,20 +26,22 @@ sun.scale.setScalar(5);
 scene.add(sun);
 
 // Earth
+const earthDistance = 10;
 const earthMaterial = new THREE.MeshBasicMaterial({
   color: 'blue'
 });
 const earth = new THREE.Mesh(sphereGeometry, earthMaterial);
-earth.position.x = 10;
+earth.position.x = earthDistance;
 scene.add(earth);
 
 // Moon
+const moonDistance = 2;
 const moonMaterial = new THREE.MeshBasicMaterial({
   color: 'wheat'
 });
 const moon = new THREE.Mesh(sphereGeometry, moonMaterial);
 moon.scale.setScalar(0.3);
-moon.position.x = 2;
+moon.position.x = moonDistance;
 earth.add(moon);
 
 
@@ -85,9 +87,24 @@ window.addEventListener('resize', () => {
 });
 
 // -----------------------------------------
-// Render the scene (i.e. animate)
+// Render the scene
 // -----------------------------------------
+
+// Initialize the clock
+const clock = new THREE.Clock();
+
 const renderloop = () => {
+  
+  const elapsedTIme = clock.getElapsedTime();
+  
+  // Add orbit animation
+  earth.rotation.y += 0.01;
+  earth.position.x = Math.sin(elapsedTIme) * earthDistance;
+  earth.position.z = Math.cos(elapsedTIme) * earthDistance;
+
+  moon.position.x = Math.sin(elapsedTIme) * moonDistance;
+  moon.position.z = Math.cos(elapsedTIme) * moonDistance;
+
   window.requestAnimationFrame(renderloop);
   controls.update();
   renderer.render(scene, camera);
