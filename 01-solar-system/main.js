@@ -18,7 +18,7 @@ const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
 const sunTexture = textureLoader.load('/textures/2k_sun.jpg');
 const mercuryTexture = textureLoader.load('/textures/2k_mercury.jpg');
-const venusTexture = textureLoader.load('/textures/2k_venus.jpg');
+const venusTexture = textureLoader.load('/textures/2k_venus_surface.jpg');
 const earthTexture = textureLoader.load('/textures/2k_earth_daymap.jpg');
 const marsTexture = textureLoader.load('/textures/2k_mars.jpg');
 const jupiterTexture = textureLoader.load('/textures/2k_jupiter.jpg');
@@ -78,7 +78,7 @@ const planets = [
       {
         name: 'Moon',
         radius: 0.27,
-        distance: 0.0514,
+        distance: 2,
         speed: 0.0343,
       }
     ]
@@ -90,18 +90,18 @@ const planets = [
     speed: 0.802,
     material: marsMaterial,
     moons: [
-      {
-        name: "Phobos",
-        radius: 2.12,
-        distance: 0.001254,
-        speed: 0.0717,
-      },
-      {
-        name: "Deimos",
-        radius: 1.18,
-        distance: 0.00314,
-        speed: 0.0454,
-      },
+      // {
+      //   name: "Phobos",
+      //   radius: 2.12,
+      //   distance: 2,
+      //   speed: 0.0717,
+      // },
+      // {
+      //   name: "Deimos",
+      //   radius: 1.18,
+      //   distance: 4,
+      //   speed: 0.0454,
+      // },
     ]
   },
   // Outer planets
@@ -178,6 +178,52 @@ const planets = [
   },
 ];
 
+// Automate the generation of planet meshes
+const createPlanet = (planet) => {
+  // 1. Create planet mesh
+  const planetMesh = new THREE.Mesh(sphereGeometry, planet.material);
+  
+  // 2. Set planet scale
+  planetMesh.scale.setScalar(planet.radius);
+
+  // 3. Set planet position
+  planetMesh.position.x = planet.distance;
+
+  return planetMesh;
+};
+
+const createMoon = (moon) => {
+  // Create moon mesh
+  const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
+  
+  // Set moon scale  
+  moonMesh.scale.setScalar(moon.radius);
+  
+  // Set moon position
+  moonMesh.position.x = moon.distance;
+
+  return moonMesh;
+};
+
+const planetMeshes = planets.map(planet => {
+  // Create planet mesh
+  const planetMesh = createPlanet(planet);
+  scene.add(planetMesh);
+  
+  // Loop through each moon and create the moon
+  planet.moons.forEach(moon => {
+    const moonMesh = createMoon(moon);
+    planetMesh.add(moonMesh); 
+  });
+
+  return planetMesh;
+});
+
+// ----------------------------------
+// Add lights
+// ----------------------------------
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+scene.add(ambientLight);
 
 // ----------------------------------
 // Initialize the camera
@@ -186,7 +232,7 @@ const camera = new THREE.PerspectiveCamera(
   35,
   window.innerWidth / window.innerHeight,
   0.1,
-  400
+  1000
 );
 
 camera.position.y = 5;
@@ -208,8 +254,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 // ----------------------------------
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-controls.minDistance = 5;
-controls.maxDistance = 200;
+controls.minDistance = 15;
+controls.maxDistance = 1000;
 
 // ----------------------------------
 // Add resize listener
