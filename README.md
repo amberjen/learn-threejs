@@ -2,7 +2,8 @@
 
 ### 01 Solar System
 
-- Status: WIP
+<img src="https://res.cloudinary.com/amberjen/image/upload/v1717226880/Learn%20Three.js/01-solar-system-v4.gif" alt="Solar System Demo" width="480" />
+
 - Resources:
   - [Solar Textures](https://www.solarsystemscope.com/textures/)
   - [HDRI to CubeMap](https://matheowis.github.io/HDRI-to-CubeMap/) 
