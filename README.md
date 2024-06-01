@@ -2,7 +2,7 @@
 
 ### 01 Solar System
 
-<img src="https://res.cloudinary.com/amberjen/image/upload/v1717226880/Learn%20Three.js/01-solar-system-v4.gif" alt="Solar System Demo" width="480" />
+![Solar System Demo](https://res.cloudinary.com/amberjen/image/upload/v1717226880/Learn%20Three.js/01-solar-system-v4.gif)
 
 - Resources:
   - [Solar Textures](https://www.solarsystemscope.com/textures/)
