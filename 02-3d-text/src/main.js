@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 // import GUI from 'lil-gui';
 
 // ----------------------------------
@@ -19,16 +18,6 @@ const canvas = document.querySelector('canvas.webgl');
 // Scene
 // ----------------------------------
 const scene = new THREE.Scene();
-// const rgbeLoader = new RGBELoader();
-// rgbeLoader.load(
-//   'textures/environment/clear_puresky_2k.hdr',
-//   (texture) => {
-//     texture.mapping = THREE.EquirectangularReflectionMapping;
-//     scene.background = texture;
-//     scene.environment = texture;
-//   }
-// );
-
 
 // ----------------------------------
 // Textures
