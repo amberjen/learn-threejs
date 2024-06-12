@@ -27,11 +27,17 @@ scene.add(axesHelper);
 // ----------------------------------
 // Objects
 // ----------------------------------
-const box = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshStandardMaterial({ roughness: 0.7 })
+
+// Floor
+const floor = new THREE.Mesh(
+  new THREE.PlaneGeometry(20, 20),
+  new THREE.MeshStandardMaterial({
+    side: THREE.DoubleSide
+  })
 );
-scene.add(box);
+floor.rotation.x = -(Math.PI * 0.5);
+scene.add(floor);
+
 
 // ----------------------------------
 // Lights
