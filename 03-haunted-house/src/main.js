@@ -40,11 +40,11 @@ const floorDisplacementTexture = textureLoader.load('floor/Stylized_Sand_001/Sty
 
 floorColorTexture.colorSpace = THREE.SRGBColorSpace;
 
-floorColorTexture.repeat.set(8, 8);
-floorAOTexture.repeat.set(8, 8);
-floorRoughnessTexture.repeat.set(8, 8);
-floorNormalTexture.repeat.set(8, 8);
-floorDisplacementTexture.repeat.set(8, 8);
+floorColorTexture.repeat.set(2, 2);
+floorAOTexture.repeat.set(2, 2);
+floorRoughnessTexture.repeat.set(2, 2);
+floorNormalTexture.repeat.set(2, 2);
+floorDisplacementTexture.repeat.set(2, 2);
 
 floorColorTexture.wrapS = THREE.RepeatWrapping;
 floorAOTexture.wrapS = THREE.RepeatWrapping;
@@ -135,7 +135,7 @@ const floor = new THREE.Mesh(
     normalMap: floorNormalTexture,
     
     displacementMap: floorDisplacementTexture,
-    displacementScale: 0.3,
+    displacementScale: 0.35,
     displacementBias: -0.13
   })
 );
@@ -296,11 +296,17 @@ for(let i=0; i<30; i++) {
 // ----------------------------------
 // Lights
 // ----------------------------------
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-directionalLight.position.set(2, 1, 7);
 
+// Environemnt Lights
+const ambientLight = new THREE.AmbientLight(0x86cdff, 0.25);
+const directionalLight = new THREE.DirectionalLight(0x86cdff, 1);
+directionalLight.position.set(2, 1, -7);
 scene.add(ambientLight, directionalLight);
+
+// Door Light
+const doorLight = new THREE.PointLight(0xff7d46, 5);
+doorLight.position.set(0, 2.2, 2.5);
+house.add(doorLight);
 
 
 // ----------------------------------
