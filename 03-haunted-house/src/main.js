@@ -22,8 +22,8 @@ const scene = new THREE.Scene();
 // ----------------------------------
 // Helpers
 // ----------------------------------
-const axesHelper =  new THREE.AxesHelper(12);
-scene.add(axesHelper);
+// const axesHelper =  new THREE.AxesHelper(12);
+// scene.add(axesHelper);
 
 // ----------------------------------
 // Textures
@@ -156,7 +156,7 @@ const houseSizes = {
   },
   roof: {
     radius: 3.5,
-    height: 1.5,
+    height: 5,
     radialSegments: 4
   },
   door: {
@@ -328,7 +328,7 @@ const sizes = {
 // Camera
 // ----------------------------------
 const camera = new THREE.PerspectiveCamera(
-  35,
+  75,
   sizes.width / sizes.height,
   1,
   200
@@ -427,10 +427,15 @@ sky.scale.setScalar(100);
 scene.add(sky);
 
 sky.material.uniforms['turbidity'].value = 10;
-sky.material.uniforms['rayleigh'].value = 3;
+sky.material.uniforms['rayleigh'].value = 0.3;
 sky.material.uniforms['mieCoefficient'].value = 0.1;
 sky.material.uniforms['mieDirectionalG'].value = 0.95;
-sky.material.uniforms['sunPosition'].value.set(0.3, -0.038, -0.95);
+sky.material.uniforms['sunPosition'].value.set(0.25, -0.038, -0.95);
+
+// ----------------------------------
+// Fog
+// ----------------------------------
+scene.fog = new THREE.FogExp2(0x08343f, 0.1);
 
 // ----------------------------------
 // Animation
