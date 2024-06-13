@@ -59,6 +59,16 @@ floorARMTexture.wrapT = THREE.RepeatWrapping;
 floorNormalTexture.wrapT = THREE.RepeatWrapping;
 floorDisplacementTexture.wrapT = THREE.RepeatWrapping;
 
+// Wall
+// const wallColorTexture = textureLoader.load('wall/castle_brick_broken_06_1k/castle_brick_broken_06_diff_1k.jpg');
+// const wallARMTexture = textureLoader.load('wall/castle_brick_broken_06_1k/castle_brick_broken_06_arm_1k.jpg');
+// const wallNormalTexture = textureLoader.load('wall/castle_brick_broken_06_1k/castle_brick_broken_06_nor_gl_1k.jpg');
+
+const wallColorTexture = textureLoader.load('wall/factory_brick_1k/factory_brick_diff_1k.jpg');
+const wallARMTexture = textureLoader.load('wall/factory_brick_1k/factory_brick_arm_1k.jpg');
+const wallNormalTexture = textureLoader.load('wall/factory_brick_1k/factory_brick_nor_gl_1k.jpg');
+
+wallColorTexture.colorSpace = THREE.SRGBColorSpace;
 
 // ----------------------------------
 // Objects
@@ -120,7 +130,13 @@ const walls = new THREE.Mesh(
     houseSizes.walls.width, 
     houseSizes.walls.height, 
     houseSizes.walls.depth),
-  new THREE.MeshStandardMaterial()
+  new THREE.MeshStandardMaterial({
+    map: wallColorTexture,
+    aoMap: wallARMTexture,
+    roughnessMap: wallARMTexture,
+    metalnessMap: wallARMTexture,
+    normalMap: wallNormalTexture
+  })
 );
 walls.position.y += (houseSizes.walls.height / 2);
 house.add(walls);
