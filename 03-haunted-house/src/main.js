@@ -70,6 +70,25 @@ const wallNormalTexture = textureLoader.load('wall/factory_brick_1k/factory_bric
 
 wallColorTexture.colorSpace = THREE.SRGBColorSpace;
 
+// Roof
+const roofColorTexture = textureLoader.load('roof/roof_slates_02_1k/roof_slates_02_diff_1k.jpg');
+const roofARMTexture = textureLoader.load('roof/roof_slates_02_1k/roof_slates_02_arm_1k.jpg');
+const roofNormalTexture = textureLoader.load('roof/roof_slates_02_1k/roof_slates_02_nor_gl_1k.jpg');
+
+roofColorTexture.colorSpace = THREE.SRGBColorSpace;
+
+roofColorTexture.repeat.set(3, 0.75);
+roofARMTexture.repeat.set(3, 0.75);
+roofNormalTexture.repeat.set(3, 0.75);
+
+roofColorTexture.wrapS = THREE.RepeatWrapping;
+roofARMTexture.wrapS = THREE.RepeatWrapping;
+roofNormalTexture.wrapS = THREE.RepeatWrapping;
+
+roofColorTexture.wrapT = THREE.RepeatWrapping;
+roofARMTexture.wrapT = THREE.RepeatWrapping;
+roofNormalTexture.wrapT = THREE.RepeatWrapping;
+
 // ----------------------------------
 // Objects
 // ----------------------------------
@@ -147,7 +166,13 @@ const roof = new THREE.Mesh(
     houseSizes.roof.radius, 
     houseSizes.roof.height,
     houseSizes.roof.radialSegments),
-  new THREE.MeshStandardMaterial()
+  new THREE.MeshStandardMaterial({
+    map: roofColorTexture,
+    aoMap: roofARMTexture,
+    roughnessMap: roofARMTexture,
+    metalnessMap: roofARMTexture,
+    normalMap: roofNormalTexture
+  })
 );
 roof.position.y += (houseSizes.walls.height + houseSizes.roof.height / 2);
 roof.rotation.y = Math.PI * 0.25; 
