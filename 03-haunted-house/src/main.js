@@ -2,12 +2,12 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { Timer } from 'three/addons/misc/Timer.js';
 import { Sky } from 'three/addons/objects/Sky.js';
-import GUI from 'lil-gui';
+// import GUI from 'lil-gui';
 
 // ----------------------------------
 // Debug
 // ----------------------------------
-const gui = new GUI();
+// const gui = new GUI();
 
 // ----------------------------------
 // Canvas
@@ -31,13 +31,13 @@ const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
 
 // Floor
-const floorAlphaTexture = textureLoader.load('floor/alpha-4.jpg');
+const floorAlphaTexture = textureLoader.load('floor/alpha-4.webp');
 
-const floorColorTexture = textureLoader.load('floor/Stylized_Sand_001/Stylized_Sand_001_basecolor.jpg');
-const floorAOTexture = textureLoader.load('floor/Stylized_Sand_001/Stylized_Sand_001_ambientOcclusion.jpg');
-const floorRoughnessTexture = textureLoader.load('floor/Stylized_Sand_001/Stylized_Sand_001_roughness.jpg');
+const floorColorTexture = textureLoader.load('floor/Stylized_Sand_001/Stylized_Sand_001_basecolor.webp');
+const floorAOTexture = textureLoader.load('floor/Stylized_Sand_001/Stylized_Sand_001_ambientOcclusion.webp');
+const floorRoughnessTexture = textureLoader.load('floor/Stylized_Sand_001/Stylized_Sand_001_roughness.webp');
 const floorNormalTexture = textureLoader.load('floor/Stylized_Sand_001/Stylized_Sand_001_normal.jpg');
-const floorDisplacementTexture = textureLoader.load('floor/Stylized_Sand_001/Stylized_Sand_001_height.png');
+const floorDisplacementTexture = textureLoader.load('floor/Stylized_Sand_001/Stylized_Sand_001_height.webp');
 
 floorColorTexture.colorSpace = THREE.SRGBColorSpace;
 
@@ -60,26 +60,26 @@ floorNormalTexture.wrapT = THREE.RepeatWrapping;
 floorDisplacementTexture.wrapT = THREE.RepeatWrapping;
 
 // Wall
-const wallColorTexture = textureLoader.load('wall/Stylized_Sci-fi_Wall_001/Stylized_Sci-fi_Wall_001_basecolor.jpg');
-const wallAOTexture = textureLoader.load('wall/Stylized_Sci-fi_Wall_001/Stylized_Sci-fi_Wall_001_ambientOcclusion.jpg');
-const wallRoughnessexture = textureLoader.load('wall/Stylized_Sci-fi_Wall_001/Stylized_Sci-fi_Wall_001_roughness.jpg');
+const wallColorTexture = textureLoader.load('wall/Stylized_Sci-fi_Wall_001/Stylized_Sci-fi_Wall_001_basecolor.webp');
+const wallAOTexture = textureLoader.load('wall/Stylized_Sci-fi_Wall_001/Stylized_Sci-fi_Wall_001_ambientOcclusion.webp');
+const wallRoughnessexture = textureLoader.load('wall/Stylized_Sci-fi_Wall_001/Stylized_Sci-fi_Wall_001_roughness.webp');
 const wallNormalTexture = textureLoader.load('wall/Stylized_Sci-fi_Wall_001/Stylized_Sci-fi_Wall_001_normal.jpg');
 
 wallColorTexture.colorSpace = THREE.SRGBColorSpace;
 
 // Roof
-const roofColorTexture = textureLoader.load('roof/Metal_Corrugated_010/Metal_Corrugated_010_basecolor.jpg');
-const roofAOTexture = textureLoader.load('roof/Metal_Corrugated_010/Metal_Corrugated_010_ambientOcclusion.jpg');
-const roofRoughnessTexture = textureLoader.load('roof/Metal_Corrugated_010/Metal_Corrugated_010_roughness.jpg');
-const roofMetalnessTexture = textureLoader.load('roof/Metal_Corrugated_010/Metal_Corrugated_010_metallic.jpg');
+const roofColorTexture = textureLoader.load('roof/Metal_Corrugated_010/Metal_Corrugated_010_basecolor.webp');
+const roofAOTexture = textureLoader.load('roof/Metal_Corrugated_010/Metal_Corrugated_010_ambientOcclusion.webp');
+const roofRoughnessTexture = textureLoader.load('roof/Metal_Corrugated_010/Metal_Corrugated_010_roughness.webp');
+const roofMetalnessTexture = textureLoader.load('roof/Metal_Corrugated_010/Metal_Corrugated_010_metallic.webp');
 const roofNormalTexture = textureLoader.load('roof/Metal_Corrugated_010/Metal_Corrugated_010_normal.jpg');
 
 roofColorTexture.colorSpace = THREE.SRGBColorSpace;
 
 // Bush
-const bushColorTexture = textureLoader.load('bush/Abstract_Organic_004/Abstract_Organic_004_basecolor.jpg');
-const bushAOTexture = textureLoader.load('bush/Abstract_Organic_004/Abstract_Organic_004_ambientOcclusion.jpg');
-const bushRoughnessTexture = textureLoader.load('bush/Abstract_Organic_004/Abstract_Organic_004_roughness.jpg');
+const bushColorTexture = textureLoader.load('bush/Abstract_Organic_004/Abstract_Organic_004_basecolor.webp');
+const bushAOTexture = textureLoader.load('bush/Abstract_Organic_004/Abstract_Organic_004_ambientOcclusion.webp');
+const bushRoughnessTexture = textureLoader.load('bush/Abstract_Organic_004/Abstract_Organic_004_roughness.webp');
 const bushNormalTexture = textureLoader.load('bush/Abstract_Organic_004/Abstract_Organic_004_normal.jpg');
 
 bushColorTexture.colorSpace = THREE.SRGBColorSpace;
@@ -95,8 +95,8 @@ bushRoughnessTexture.wrapS = THREE.RepeatWrapping;
 bushNormalTexture.wrapS = THREE.RepeatWrapping;
 
 // Grave
-const graveColorTexture = textureLoader.load('grave/plastered_stone_wall_1k/plastered_stone_wall_diff_1k.jpg');
-const graveARMTexture = textureLoader.load('grave/plastered_stone_wall_1k/plastered_stone_wall_arm_1k.jpg');
+const graveColorTexture = textureLoader.load('grave/plastered_stone_wall_1k/plastered_stone_wall_diff_1k.webp');
+const graveARMTexture = textureLoader.load('grave/plastered_stone_wall_1k/plastered_stone_wall_arm_1k.webp');
 const graveNormalTexture = textureLoader.load('grave/plastered_stone_wall_1k/plastered_stone_wall_nor_gl_1k.jpg');
 
 graveColorTexture.colorSpace = THREE.SRGBColorSpace;
@@ -106,14 +106,13 @@ graveARMTexture.repeat.set(0.3, 0.4);
 graveNormalTexture.repeat.set(0.3, 0.4);
 
 // Door
-
-const doorColorTexture = textureLoader.load('/door/Sci-fi_Door_001/color.jpg');
-const doorAlphaTexture = textureLoader.load('door/Sci-fi_Door_001/alpha.jpg');
-const doorAOTexture = textureLoader.load('/door/Sci-fi_Door_001/ambientOcclusion.jpg');
-const doorHeightTexture = textureLoader.load('/door/Sci-fi_Door_001/height.png');
+const doorColorTexture = textureLoader.load('/door/Sci-fi_Door_001/color.webp');
+const doorAlphaTexture = textureLoader.load('door/Sci-fi_Door_001/alpha.webp');
+const doorAOTexture = textureLoader.load('/door/Sci-fi_Door_001/ambientOcclusion.webp');
+const doorHeightTexture = textureLoader.load('/door/Sci-fi_Door_001/height.webp');
 const doorNormalTexture = textureLoader.load('/door/Sci-fi_Door_001/normal.jpg');
-const doorMetalnessTexture = textureLoader.load('/door/Sci-fi_Door_001/metalness.jpg');
-const doorRoughnessTexture = textureLoader.load('/door/Sci-fi_Door_001/roughness.jpg');
+const doorMetalnessTexture = textureLoader.load('/door/Sci-fi_Door_001/metalness.webp');
+const doorRoughnessTexture = textureLoader.load('/door/Sci-fi_Door_001/roughness.webp');
 
 doorColorTexture.colorSpace = THREE.SRGBColorSpace;
 
@@ -156,7 +155,7 @@ const houseSizes = {
   },
   roof: {
     radius: 3.5,
-    height: 5,
+    height: 2,
     radialSegments: 4
   },
   door: {
@@ -292,8 +291,6 @@ for(let i=0; i<30; i++) {
   graves.add(grave);
 }
 
-
-
 // ----------------------------------
 // Lights
 // ----------------------------------
@@ -314,7 +311,6 @@ const ghost1 = new THREE.PointLight(0x1450f5, 5);
 const ghost2 = new THREE.PointLight(0x9016fa, 5);
 const ghost3 = new THREE.PointLight(0xe37b20, 5);
 scene.add(ghost1, ghost2, ghost3);
-
 
 // ----------------------------------
 // Sizes
@@ -463,9 +459,6 @@ const animate = () => {
   ghost3.position.x = Math.sin(ghost3Angle) * 6;
   ghost3.position.z = Math.cos(ghost3Angle) * 6;
   ghost3.position.y = Math.sin(ghost3Angle) * Math.sin(ghost3Angle * 2.34) * Math.sin(ghost3Angle * 3.45);
-
-
-
 
   // Update controls
   controls.update();
