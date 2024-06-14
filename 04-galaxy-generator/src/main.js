@@ -19,6 +19,45 @@ const canvas = document.querySelector('canvas.webgl');
 const scene = new THREE.Scene();
 
 // ----------------------------------
+// Galaxy
+// ----------------------------------
+const params = {
+  count: 1000, // Number of particles
+  size: 0.02
+};
+
+const galaxyGenerator = () => {
+
+  // Galaxy Geometry
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(params.count * 3); // Each particle has 3 coords: x, y, z
+
+  for(let i=0; i<params.count; i++) {
+    const i3 = i * 3;
+
+    positions[i3 + 0] = (Math.random() - 0.5) * 3; // x, random positions in [-1.5, 1.5]
+    positions[i3 + 1] = (Math.random() - 0.5) * 3; // y
+    positions[i3 + 2] = (Math.random() - 0.5) * 3; // z
+  }
+
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  // Galaxy Material
+  const material = new THREE.PointsMaterial({
+    size: params.size,
+    sizeAttenuation: true, // Particle size decreases with distance
+    depthWrite: false, // Disable writing to the depth buffer to prevent sorting issues with transparent particles
+    blending: THREE.AdditiveBlending // Create a glowing effect
+  });
+
+  const points = new THREE.Points(geometry, material);
+
+  scene.add(points);
+};
+
+galaxyGenerator();
+
+// ----------------------------------
 // Helpers
 // ----------------------------------
 const axesHelper =  new THREE.AxesHelper(2);
@@ -32,11 +71,11 @@ const textureLoader = new THREE.TextureLoader();
 // ----------------------------------
 // Objects
 // ----------------------------------
-const box = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshStandardMaterial({ roughness: 0.7 })
-);
-scene.add(box);
+// const box = new THREE.Mesh(
+//   new THREE.BoxGeometry(1, 1, 1),
+//   new THREE.MeshStandardMaterial({ roughness: 0.7 })
+// );
+// scene.add(box);
 
 // ----------------------------------
 // Lights
@@ -75,7 +114,7 @@ scene.add(camera);
 // ----------------------------------
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-controls.minDistance = 2;
+controls.minDistance = 0;
 controls.maxDistance = 100;
 
 // ----------------------------------
