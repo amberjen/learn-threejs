@@ -21,6 +21,14 @@
   - [Facetype.js](https://gero3.github.io/facetype.js/)
   - [Matcap PNG Textures](https://github.com/nidorx/matcaps)
 
+## 03 Haunted House
+
+<img src="./demo/03-haunted-house.gif" alt="Haunted house demo" width="480" >
+
+**Resources**
+  - [Poly Heaven](https://polyhaven.com/)
+  - [3D Textures](https://3dtextures.me/)
+  - [WebP](https://formulae.brew.sh/formula/webp)
 
 
 ## Credits
