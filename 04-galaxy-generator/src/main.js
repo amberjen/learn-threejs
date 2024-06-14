@@ -22,14 +22,25 @@ const scene = new THREE.Scene();
 // Galaxy
 // ----------------------------------
 const params = {
-  count: 1000, // Number of particles
-  size: 0.02
+  count: 100000, // Number of particles
+  size: 0.01
 };
 
-const galaxyGenerator = () => {
+let geometry = null;
+let material = null;
+let points = null
+
+const generateGalaxy = () => {
+
+  // Destroy old galaxy
+  if(points !== null) {
+    geometry.dispose();
+    material.dispose();
+    scene.remove(points);
+  }
 
   // Galaxy Geometry
-  const geometry = new THREE.BufferGeometry();
+  geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(params.count * 3); // Each particle has 3 coords: x, y, z
 
   for(let i=0; i<params.count; i++) {
@@ -43,19 +54,27 @@ const galaxyGenerator = () => {
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
   // Galaxy Material
-  const material = new THREE.PointsMaterial({
+  material = new THREE.PointsMaterial({
     size: params.size,
     sizeAttenuation: true, // Particle size decreases with distance
     depthWrite: false, // Disable writing to the depth buffer to prevent sorting issues with transparent particles
     blending: THREE.AdditiveBlending // Create a glowing effect
   });
 
-  const points = new THREE.Points(geometry, material);
+  points = new THREE.Points(geometry, material);
 
   scene.add(points);
 };
 
-galaxyGenerator();
+generateGalaxy();
+
+gui.add(params, 'count')
+  .min(100).max(100000).step(100)
+  .onFinishChange(generateGalaxy);
+
+gui.add(params, 'size')
+  .min(0.001).max(0.1).step(0.001)
+  .onFinishChange(generateGalaxy);
 
 // ----------------------------------
 // Helpers
@@ -115,7 +134,7 @@ scene.add(camera);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.minDistance = 0;
-controls.maxDistance = 100;
+controls.maxDistance = 50;
 
 // ----------------------------------
 // Renderer
