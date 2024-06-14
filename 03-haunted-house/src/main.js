@@ -426,7 +426,7 @@ sky.material.uniforms['turbidity'].value = 10;
 sky.material.uniforms['rayleigh'].value = 0.3;
 sky.material.uniforms['mieCoefficient'].value = 0.1;
 sky.material.uniforms['mieDirectionalG'].value = 0.95;
-sky.material.uniforms['sunPosition'].value.set(0.25, -0.038, -0.95);
+sky.material.uniforms['sunPosition'].value.set(0.25, -0.04, -0.95);
 
 // ----------------------------------
 // Fog
