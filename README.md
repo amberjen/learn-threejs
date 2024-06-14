@@ -23,7 +23,7 @@
 
 ## 03 Haunted House
 
-<img src="./demo/03-haunted-house.gif" alt="Haunted house demo" width="480" >
+<img src="./demo/03-haunted-house-v6.gif" alt="Haunted house demo" width="480" >
 
 **Resources**
   - [Poly Heaven](https://polyhaven.com/)
