@@ -26,7 +26,9 @@ const params = {
   size: 0.01,
   radius: 5,
   branches: 3,
-  spin: 1
+  spin: 1,
+  randomness: 0.2,
+  randomnessPower: 3
 };
 
 let geometry = null;
@@ -53,10 +55,14 @@ const generateGalaxy = () => {
     const spinAngle = radius * params.spin;
     const branchAngle = ((i % params.branches) / params.branches) * Math.PI * 2;
 
-    // Radomize particle positions
-    positions[i3 + 0] = Math.cos(branchAngle + spinAngle) * radius; // x
-    positions[i3 + 1] = 0; // y
-    positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius; // z
+    const randomX = Math.pow(Math.random(), params.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * params.randomness * radius;
+    const randomY = Math.pow(Math.random(), params.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * params.randomness * radius;
+    const randomZ = Math.pow(Math.random(), params.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * params.randomness * radius;
+
+    // Radomize particle positions in x, y & z
+    positions[i3 + 0] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+    positions[i3 + 1] = 0 + randomY;
+    positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
   }
 
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -95,6 +101,14 @@ gui.add(params, 'branches')
 
 gui.add(params, 'spin')
   .min(-5).max(5).step(0.001)
+  .onFinishChange(generateGalaxy);
+
+gui.add(params, 'randomness')
+  .min(0).max(2).step(0.001)
+  .onFinishChange(generateGalaxy);
+
+gui.add(params, 'randomnessPower')
+  .min(1).max(10).step(0.001)
   .onFinishChange(generateGalaxy);
 
 // ----------------------------------
