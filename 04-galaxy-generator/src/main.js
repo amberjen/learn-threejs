@@ -6,7 +6,7 @@ import GUI from 'lil-gui';
 // ----------------------------------
 // Debug
 // ----------------------------------
-const gui = new GUI();
+const gui = new GUI({ width: 320 });
 
 // ----------------------------------
 // Canvas
@@ -22,13 +22,15 @@ const scene = new THREE.Scene();
 // Galaxy
 // ----------------------------------
 const params = {
-  count: 100000, // Number of particles
-  size: 0.01,
-  radius: 5,
-  branches: 3,
-  spin: 1,
-  randomness: 0.2,
-  randomnessPower: 3
+  count: 100000,
+  size: 0.016,
+  radius: 5.71,
+  branches: 5,
+  spin: -1.652,
+  randomness: 0.29,
+  randomnessPower: 3.419,
+  insideColor: 0xba24ff,
+  outsideColor: 0x05133d
 };
 
 let geometry = null;
@@ -46,11 +48,19 @@ const generateGalaxy = () => {
 
   // Galaxy Geometry
   geometry = new THREE.BufferGeometry();
+  
   const positions = new Float32Array(params.count * 3); // Each particle has 3 coords: x, y, z
+  const colors = new Float32Array(params.count * 3); // r, g, b
+
+  const colorInside = new THREE.Color(params.insideColor);
+  const colorOutside = new THREE.Color(params.outsideColor);
+  
 
   for(let i=0; i<params.count; i++) {
+
     const i3 = i * 3;
 
+    // Positions
     const radius = Math.random() * params.radius;
     const spinAngle = radius * params.spin;
     const branchAngle = ((i % params.branches) / params.branches) * Math.PI * 2;
@@ -59,20 +69,30 @@ const generateGalaxy = () => {
     const randomY = Math.pow(Math.random(), params.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * params.randomness * radius;
     const randomZ = Math.pow(Math.random(), params.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * params.randomness * radius;
 
-    // Radomize particle positions in x, y & z
     positions[i3 + 0] = Math.cos(branchAngle + spinAngle) * radius + randomX;
     positions[i3 + 1] = 0 + randomY;
     positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
+
+    // Colors
+    const mixedColor = colorInside.clone();
+    mixedColor.lerp(colorOutside, radius / params.radius);
+
+    colors[i3 + 0] = mixedColor.r;
+    colors[i3 + 1] = mixedColor.g;
+    colors[i3 + 2] = mixedColor.b;
+
   }
 
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
   // Galaxy Material
   material = new THREE.PointsMaterial({
     size: params.size,
     sizeAttenuation: true, // Particle size decreases with distance
     depthWrite: false, // Disable writing to the depth buffer to prevent sorting issues with transparent particles
-    blending: THREE.AdditiveBlending // Create a glowing effect
+    blending: THREE.AdditiveBlending, // Create a glowing effect,
+    vertexColors: true
   });
 
   points = new THREE.Points(geometry, material);
@@ -111,11 +131,17 @@ gui.add(params, 'randomnessPower')
   .min(1).max(10).step(0.001)
   .onFinishChange(generateGalaxy);
 
+gui.addColor(params, 'insideColor')
+  .onFinishChange(generateGalaxy);
+
+gui.addColor(params, 'outsideColor')
+  .onFinishChange(generateGalaxy);
+
 // ----------------------------------
 // Helpers
 // ----------------------------------
-const axesHelper =  new THREE.AxesHelper(2);
-scene.add(axesHelper);
+// const axesHelper =  new THREE.AxesHelper(2);
+// scene.add(axesHelper);
 
 // ----------------------------------
 // Textures
