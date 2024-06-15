@@ -31,4 +31,10 @@
   - [WebP](https://formulae.brew.sh/formula/webp)
 
 
+## 04 Galaxy Generator
+<img src="./demo/04-galaxy-generator.png" alt="Galaxy generator demo" width="480" >
+
+<img src="./demo/04-galaxy-generator-2c.png" alt="Galaxy generator demo" width="480" >
+
+
 ## Credits
