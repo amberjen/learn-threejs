@@ -37,4 +37,5 @@
 <img src="./demo/04-galaxy-generator-2c.png" alt="Galaxy generator demo" width="480" >
 
 
-## Credits
+## 05 Scroll Animation
+<img src="./demo/05-scroll-animation-v2.gif" alt="Scroll animation demo" width="480" >
