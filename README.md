@@ -39,3 +39,8 @@
 
 ## 05 Scroll Animation
 <img src="./demo/05-scroll-animation-v2.gif" alt="Scroll animation demo" width="480" >
+
+## 06 Low Poly Planet
+<img src="./demo/06-lowpoly-planet.gif" alt="Low poly planet demo" width="480" >
+
+- Model created using Blender (inspired by Polygon Runway)
