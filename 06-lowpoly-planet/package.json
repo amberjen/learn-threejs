@@ -4,13 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build",
+    "deploy": "vercel --prod"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "lil-gui": "^0.19.2",
-    "three": "^0.165.0"
+    "three": "^0.165.0",
+    "vercel": "^34.2.7"
   },
   "devDependencies": {
     "vite": "^5.2.13"
