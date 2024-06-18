@@ -25,6 +25,8 @@
 
 <img src="./demo/03-haunted-house-v6.gif" alt="Haunted house demo" width="480" >
 
+- Models built using Three.js geometry
+
 **Resources**
   - [Poly Heaven](https://polyhaven.com/)
   - [3D Textures](https://3dtextures.me/)
@@ -44,3 +46,4 @@
 <img src="./demo/06-lowpoly-planet.gif" alt="Low poly planet demo" width="480" >
 
 - Model created using Blender (inspired by Polygon Runway)
+- Live demo: https://lowpoly-planet.vercel.app/
