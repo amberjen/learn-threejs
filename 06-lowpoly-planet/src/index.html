@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0Y43TV5J3P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0Y43TV5J3P');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="./style.css">
-  <title>Low Poly Planet</title>
+  <title>Three.js Low Poly Planet</title>
 </head>
 <body>
   <canvas class="webgl"></canvas>
+
+  <h1>
+    Three.js<br/>
+    Low Poly<br/>
+    Planet
+  </h1>
+  <h2>Created by<br/>
+    <a href="https://github.com/amberjen/learn-threejs">@amberjen</a>
+  </h2>
+
   <script type="module" src="./main.js"></script>
 </body>
 </html>
