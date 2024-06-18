@@ -146,7 +146,7 @@ scene.add(camera);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.minDistance = 2;
-controls.maxDistance = 50;
+controls.maxDistance = 25;
 
 // ----------------------------------
 // Renderer
@@ -194,7 +194,10 @@ const animate = () => {
   timer.update();
   const elapsedTime = timer.getElapsed();
 
-  // Update objects
+  // Update model
+  if(planet) {
+    planet.rotation.y = elapsedTime * 0.05;
+  }
 
   // Update controls
   controls.update();
