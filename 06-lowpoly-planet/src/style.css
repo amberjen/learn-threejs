@@ -16,7 +16,6 @@ body {
   font-size: 16px;
   font-weight: 700;
   letter-spacing: -.2px;
-  text-transform: uppercase;
   padding: 2%;
 }
 
@@ -24,6 +23,7 @@ h1 {
   position: relative;
   font-size: 2rem;
   line-height: 1;
+  text-transform: uppercase;
   margin-bottom: 2rem;
 }
 
@@ -32,6 +32,7 @@ h2 {
   font-size: 1.125rem;
   font-weight: 600;
   line-height: 1.1;
+  text-transform: uppercase;
 }
 
 .webgl {

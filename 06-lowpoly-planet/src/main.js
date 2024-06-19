@@ -3,12 +3,18 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { Timer } from 'three/addons/misc/Timer.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-// import GUI from 'lil-gui';
+import GUI from 'lil-gui';
+import Stats from 'stats.js';
 
 // ----------------------------------
 // Debug
 // ----------------------------------
-// const gui = new GUI();
+const gui = new GUI();
+gui.hide();
+
+const stats = new Stats();
+stats.showPanel(0); // FPS (higher = better)
+// document.body.appendChild(stats.dom);
 
 // ----------------------------------
 // Canvas
@@ -38,7 +44,7 @@ gltfLoader.load(
     planet = gltf.scene;
     planet.scale.set(1.5, 1.5, 1.5);
     scene.add(planet);
-    
+
     // Function to set receiveShadow to true for all meshes
     const setReceiveShadow = (object) => {
       if(object.isMesh) {
@@ -160,6 +166,17 @@ const renderer = new THREE.WebGLRenderer({
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
+gui.add(renderer, 'toneMapping', {
+  No: THREE.NoToneMapping,
+  Linear: THREE.LinearToneMapping,
+  Reinhard: THREE.ReinhardToneMapping,
+  Cineon: THREE.CineonToneMapping,
+  ACESFlimic: THREE.ACESFilmicToneMapping,
+});
+
+gui.add(renderer, 'toneMappingExposure')
+  .min(0).max(2).step(0.001);
+
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.render(scene, camera);
@@ -186,9 +203,13 @@ window.addEventListener('resize', () => {
 // ----------------------------------
 // Animation
 // ----------------------------------
+
 const timer = new Timer();
 
 const animate = () => {
+
+  // --- Performance Monitor: BEGIN ----
+  stats.begin();
 
   // Update timer
   timer.update();
@@ -204,6 +225,9 @@ const animate = () => {
 
   // Do a new render
   renderer.render(scene, camera);
+
+  // --- Performance Monitor: END ----
+  stats.end();
 
   // Call animate again on the next frame
   window.requestAnimationFrame(animate);
