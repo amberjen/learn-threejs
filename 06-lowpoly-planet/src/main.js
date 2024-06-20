@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { Timer } from 'three/addons/misc/Timer.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { gsap } from 'gsap';
 import GUI from 'lil-gui';
 import Stats from 'stats.js';
 
@@ -27,10 +28,75 @@ const canvas = document.querySelector('canvas.webgl');
 const scene = new THREE.Scene();
 
 // ----------------------------------
+// Loading
+// ----------------------------------
+
+// Overlay
+const overlayGeometry = new THREE.PlaneGeometry(2, 2, 1, 1);
+const overlayMaterial = new THREE.ShaderMaterial({
+  transparent: true,
+  uniforms: {
+    uAlpha: { value: 1 },
+  },
+  vertexShader: `
+    void main() {
+      gl_Position = vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform float uAlpha;
+
+    void main() {
+      gl_FragColor = vec4(0.0, 0.0, 0.0, uAlpha);
+    }
+  `,
+});
+const overlay = new THREE.Mesh(overlayGeometry, overlayMaterial);
+scene.add(overlay);
+
+
+// ----------------------------------
 // Model
 // ----------------------------------
-const dracoLoader = new DRACOLoader();
-const gltfLoader = new GLTFLoader();
+const tl = gsap.timeline();
+const progressElement = document.querySelector('.progress');
+
+const loadingManager = new THREE.LoadingManager(
+  // Loaded
+  () => {
+    console.log('loaded');
+
+    tl
+    .to('.loader', {
+      opacity: 0
+    },'+=.35')
+    .to('.webgl', {
+        opacity: 1,
+      }, '<')
+    .to(overlayMaterial.uniforms.uAlpha, {
+        duration: 3,
+        value: 0
+      })
+    .to('h1', {
+        opacity: 1,
+        duration: 3,
+      }, '<')
+    .to('h2', {
+        opacity: 1,
+        duration: 3,
+      }, '<');
+  },
+  // Progress
+  (itemUrl, itemLoaded, itemTotal) => {
+
+    const progressRatio = (itemLoaded / itemTotal) * 100;
+
+    progressElement.innerText = progressRatio;
+    console.log('progress', itemLoaded/itemTotal * 100);
+  }
+);
+const dracoLoader = new DRACOLoader(loadingManager);
+const gltfLoader = new GLTFLoader(loadingManager);
 
 dracoLoader.setDecoderPath('/draco/');
 gltfLoader.setDRACOLoader(dracoLoader);
