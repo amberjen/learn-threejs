@@ -64,7 +64,6 @@ const progressElement = document.querySelector('.progress');
 const loadingManager = new THREE.LoadingManager(
   // Loaded
   () => {
-    console.log('loaded');
 
     tl
     .to('.loader', {
@@ -90,9 +89,8 @@ const loadingManager = new THREE.LoadingManager(
   (itemUrl, itemLoaded, itemTotal) => {
 
     const progressRatio = (itemLoaded / itemTotal) * 100;
-
     progressElement.innerText = progressRatio;
-    console.log('progress', itemLoaded/itemTotal * 100);
+
   }
 );
 const dracoLoader = new DRACOLoader(loadingManager);
