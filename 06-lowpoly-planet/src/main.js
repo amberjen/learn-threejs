@@ -6,6 +6,9 @@ import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { gsap } from 'gsap';
 import GUI from 'lil-gui';
 import Stats from 'stats.js';
+import { inject } from '@vercel/analytics';
+
+inject();
 
 // ----------------------------------
 // Debug
