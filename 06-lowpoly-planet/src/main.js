@@ -61,6 +61,7 @@ scene.add(overlay);
 // ----------------------------------
 // Model
 // ----------------------------------
+let sceneReady = false;
 const tl = gsap.timeline();
 const progressElement = document.querySelector('.progress');
 
@@ -68,25 +69,32 @@ const loadingManager = new THREE.LoadingManager(
   // Loaded
   () => {
 
-    tl
-    .to('.loader', {
-      opacity: 0
-    },'+=.35')
-    .to('.webgl', {
-        opacity: 1,
-      }, '<')
-    .to(overlayMaterial.uniforms.uAlpha, {
-        duration: 3,
-        value: 0
-      })
-    .to('h1', {
-        opacity: 1,
-        duration: 3,
-      }, '<')
-    .to('h2', {
-        opacity: 1,
-        duration: 3,
-      }, '<');
+    window.setTimeout(() => {
+      tl
+      .to('.loader', {
+        opacity: 0
+      },'+=.35')
+      .to('.webgl', {
+          opacity: 1,
+        }, '<')
+      .to(overlayMaterial.uniforms.uAlpha, {
+          duration: 3,
+          value: 0
+        })
+      .to('h1', {
+          opacity: 1,
+          duration: 3,
+        }, '<')
+      .to('h2', {
+          opacity: 1,
+          duration: 3,
+        }, '<');
+      }, 500);
+
+      window.setTimeout(()=> {
+        sceneReady = true;        
+      }, 2000);
+      
   },
   // Progress
   (itemUrl, itemLoaded, itemTotal) => {
@@ -137,6 +145,31 @@ gltfLoader.load(
   undefined,
   (error) => console.error(error)
 );
+
+// ----------------------------------
+// Markers & Raycaster
+// ----------------------------------
+const raycaster = new THREE.Raycaster();
+
+const markers = [
+  {
+    position: new THREE.Vector3(.8, 1.45, 1.6),
+    element: document.querySelector('.marker-1')
+  },
+  {
+    position: new THREE.Vector3(.5, 0.8, 1.5),
+    element: document.querySelector('.marker-2')
+  },
+  {
+    position: new THREE.Vector3(-.85, -.4 , 1.25),
+    element: document.querySelector('.marker-3')
+  },
+  {
+    position: new THREE.Vector3(-1.55, .5 , -1.15),
+    element: document.querySelector('.marker-4')
+  },
+];
+
 
 // ----------------------------------
 // Helpers
@@ -282,13 +315,45 @@ const animate = () => {
   timer.update();
   const elapsedTime = timer.getElapsed();
 
-  // Update model
+  // Update model TODO:
   if(planet) {
-    planet.rotation.y = elapsedTime * 0.05;
+    // planet.rotation.y = elapsedTime * 0.05;
   }
 
   // Update controls
   controls.update();
+
+  // Update markers
+  if(sceneReady) {
+ 
+    markers.forEach(marker => {
+      const screenPosition = marker.position.clone();
+      screenPosition.project(camera)
+
+      raycaster.setFromCamera(screenPosition, camera);
+      const interacts = raycaster.intersectObjects(scene.children, true);
+
+      if(interacts.length === 0) {
+        marker.element.classList.add('visible');
+      } else {
+        const intersectionDistance = interacts[0].distance;
+        const markerDistance = marker.position.distanceTo(camera.position);
+
+        if(intersectionDistance < markerDistance) {
+          marker.element.classList.remove('visible');
+        } else {
+          marker.element.classList.add('visible');
+        }
+      }
+
+      const translateX = screenPosition.x * sizes.width * 0.5;
+      const translateY = -screenPosition.y * sizes.height * 0.5;
+      marker.element.style.transform =`translate(${translateX}px, ${translateY}px)`;
+
+
+    });
+
+  }
 
   // Do a new render
   renderer.render(scene, camera);
