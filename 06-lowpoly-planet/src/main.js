@@ -71,24 +71,11 @@ const loadingManager = new THREE.LoadingManager(
 
     window.setTimeout(() => {
       tl
-      .to('.loader', {
-        opacity: 0
-      },'+=.35')
-      .to('.webgl', {
-          opacity: 1,
-        }, '<')
-      .to(overlayMaterial.uniforms.uAlpha, {
-          duration: 3,
-          value: 0
-        })
-      .to('h1', {
-          opacity: 1,
-          duration: 3,
-        }, '<')
-      .to('h2', {
-          opacity: 1,
-          duration: 3,
-        }, '<');
+        .to('.loader', { opacity: 0 },'+=.35')
+        .to('.webgl', { opacity: 1 }, '<')
+        .to(overlayMaterial.uniforms.uAlpha, { duration: 3, value: 0 })
+        .to('h1', { opacity: 1, duration: 3 }, '<')
+        .to('h2', { opacity: 1, duration: 3 }, '<');
       }, 500);
 
       window.setTimeout(()=> {
@@ -147,28 +134,62 @@ gltfLoader.load(
 );
 
 // ----------------------------------
-// Markers & Raycaster
+// Markers, Panels & Raycaster
 // ----------------------------------
 const raycaster = new THREE.Raycaster();
 
 const markers = [
   {
     position: new THREE.Vector3(.8, 1.45, 1.6),
-    element: document.querySelector('.marker-1')
+    element: document.querySelector('.marker-1'),
+    panel: document.querySelector('.panel-1')
   },
   {
     position: new THREE.Vector3(.5, 0.8, 1.5),
-    element: document.querySelector('.marker-2')
+    element: document.querySelector('.marker-2'),
+    panel: document.querySelector('.panel-2')
   },
   {
     position: new THREE.Vector3(-.85, -.4 , 1.25),
-    element: document.querySelector('.marker-3')
+    element: document.querySelector('.marker-3'),
+    panel: document.querySelector('.panel-3')
   },
   {
     position: new THREE.Vector3(-1.55, .5 , -1.15),
-    element: document.querySelector('.marker-4')
+    element: document.querySelector('.marker-4'),
+    panel: document.querySelector('.panel-4')
   },
 ];
+
+const closeAllPanels = () => {
+  markers.forEach(marker => {
+
+    gsap.to(marker.panel, { 
+      x: 0,
+      duration: .35,
+      ease: 'power4.inOut'
+    });
+
+  })
+};
+
+markers.forEach(marker => {
+
+  // Click CTA Btn
+  marker.element.addEventListener('click', () => {
+    closeAllPanels();
+
+    gsap.to(marker.panel, { x: '-320px', duration: .35 });
+
+  });
+
+  // Click Close Btn
+  marker.panel.querySelector('.btn-close').addEventListener('click', () => {
+    gsap.to(marker.panel, { x: '0', duration: .35 });
+  });
+
+
+});
 
 
 // ----------------------------------
@@ -306,7 +327,7 @@ window.addEventListener('resize', () => {
 
 const timer = new Timer();
 
-const animate = () => {
+const animateScene = () => {
 
   // --- Performance Monitor: BEGIN ----
   stats.begin();
@@ -362,8 +383,8 @@ const animate = () => {
   stats.end();
 
   // Call animate again on the next frame
-  window.requestAnimationFrame(animate);
+  window.requestAnimationFrame(animateScene);
 
 }
 
-animate();
+animateScene();
