@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import GUI from 'lil-gui';
 import Stats from 'stats.js';
 import { inject } from '@vercel/analytics';
+import confetti from 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.module.mjs';
 
 inject();
 
@@ -175,7 +176,7 @@ const closeAllPanels = () => {
 
 markers.forEach(marker => {
 
-  // Click CTA Btn
+  // Click marker
   marker.element.addEventListener('click', () => {
     closeAllPanels();
 
@@ -183,13 +184,50 @@ markers.forEach(marker => {
 
   });
 
-  // Click Close Btn
+  // Click close btn
   marker.panel.querySelector('.btn-close').addEventListener('click', () => {
     gsap.to(marker.panel, { x: '0', duration: .35 });
   });
 
 
 });
+
+const ctaBtns = document.querySelectorAll('.btn-cta');
+
+let defaults = {
+  spread: 360,
+  ticks: 50,
+  gravity: 0,
+  decay: 0.94,
+  startVelocity: 30,
+  colors: ['FFE400', 'FFBD00', 'E89400', 'FFCA6C', 'FDFFB8']
+};
+
+const shoot = () => {
+  confetti({
+    ...defaults,
+    particleCount: 40,
+    scalar: 1.2,
+    shapes: ['star']
+  });
+
+  confetti({
+    ...defaults,
+    particleCount: 10,
+    scalar: 0.75,
+    shapes: ['circle']
+  });
+};
+
+ctaBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+
+    setTimeout(shoot, 0);
+    setTimeout(shoot, 100);
+    setTimeout(shoot, 200);
+
+  });
+})
 
 
 // ----------------------------------

@@ -14,7 +14,7 @@ button { font-family: inherit; }
 body {
   overflow: hidden;
   color: #fff;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   font-size: 16px;
   font-weight: 700;
   letter-spacing: -.2px;
@@ -24,15 +24,15 @@ body {
 
 h1 {
   position: relative;
-  font-size: 2rem;
+  font-size: 32px;
   line-height: 1;
   text-transform: uppercase;
-  margin-bottom: 2rem;
+  margin-bottom: 32px;
 }
 
 h2 {
   position: relative;
-  font-size: 1.125rem;
+  font-size: 18px;
   font-weight: 600;
   line-height: 1.1;
   text-transform: uppercase;
@@ -42,13 +42,7 @@ h2 {
   position: fixed;
   top: 0;
   left: 0;
-
-  /* background: radial-gradient(circle, #a0d7e6, #008cba); */
-
-  /* background: linear-gradient(to top, #97a1d1, #262d62); */
-  /* background: linear-gradient(to top, #a0d7e6, #008cba); */
   background: linear-gradient(to top, #74aab8, #004271);
-
 }
 
 h1,
@@ -68,7 +62,7 @@ h2,
   justify-content: center;
   align-content: center;
 
-  font-size: 2.5rem;
+  font-size: 40px;
   font-weight: 600;
   text-align: center;
 }
@@ -113,7 +107,7 @@ h2,
   transform: scale(1, 1);
 }
 
-/* ------- Panels TODO: ------- */
+/* ------- Panels ------- */
 .info-panel {
   position: fixed;
   top: 0;
@@ -123,7 +117,6 @@ h2,
   color: rgba(0, 0, 0, .8);
   background: #fff;
   font-weight: 400;
-  font-family: "IBM Plex Sans",sans-serif;
   box-shadow: -4px 0 12px rgba(0, 0, 0, .025);
 }
 
@@ -170,9 +163,7 @@ h2,
   margin-bottom: 4px;
 }
 
-.info-panel .meta-content {
-  font-size: 14px;
-}
+.info-panel .meta-content { font-size: 14px; }
 
 .info-panel .btn-cta {
   width: 100%;
@@ -207,14 +198,13 @@ h2,
   bottom: -20px;
 }
 
-
 @media screen and (max-width: 480px) {
   body { padding: 3%; }
 
   h1 {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
+    font-size: 28px;
+    margin-bottom: 16px;
   }
 
-  h2 { font-size: 1rem; }
+  h2 { font-size: 16px; }
 }
