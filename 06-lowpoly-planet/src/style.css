@@ -11,6 +11,10 @@ a {
 
 button { font-family: inherit; }
 
+/* ------------------------- */
+/*            Base           */
+/* ------------------------- */
+
 body {
   overflow: hidden;
   color: #fff;
@@ -83,8 +87,6 @@ h2,
   text-align: center;
 }
 
-
-
 /* ------------------------- */
 /*      Markers & Panels     */
 /* ------------------------- */
@@ -110,18 +112,20 @@ h2,
   cursor: pointer;
   transform: scale(0, 0);
   transition: transform .3s, background .25s;
-  
-  /* Ensures the markers do not interferer with mouse events */
-  /* pointer-events: none; */
 }
 
-.marker.visible  .marker-label:hover {
-  transform: scale(1.1, 1.1);
-  background: rgba(255, 255, 255, .45);
-}
+.marker.visible  {
 
-.marker.visible .marker-label {
-  transform: scale(1, 1);
+  & .marker-label {
+    transform: scale(1, 1);
+
+    &:hover {
+      transform: scale(1.1, 1.1);
+      background: rgba(255, 255, 255, .45);
+    }
+
+  }
+
 }
 
 /* ------- Panels ------- */
@@ -137,90 +141,80 @@ h2,
   background: #fff;
   font-weight: 400;
   box-shadow: -4px 0 12px rgba(0, 0, 0, .025);
-}
 
-.info-panel .panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-}
+  & .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
 
-.info-panel .panel-header h4 { font-weight: 500; }
+    & h4 { font-weight: 500; }
 
-.info-panel img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
+  }
 
-.info-panel .panel-body { 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 16px 24px 24px; 
-  height: 100%;
-}
+  & img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
 
-.info-panel .panel-title {
-  margin-bottom: 8px;
-  font-size: 20px;
-  font-weight: 700;
-}
+  & .panel-body { 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px 24px 24px; 
+    height: 100%;
+  }
 
-.info-panel .panel-intro {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.5;
-  margin-bottom: 8px;
-}
+  & .panel-title {
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: 700;
+  }
 
-.info-panel .panel-meta { margin-bottom: 8px; }
+  & .panel-intro {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
 
-.info-panel .panel-meta:last-of-type { margin-bottom: 24px; }
+  & .panel-meta { margin-bottom: 8px; }
+  
+  & .meta-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, .4);
+    margin-bottom: 4px;
+  }
 
-.info-panel .meta-label {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, .4);
-  margin-bottom: 4px;
-}
+  & .meta-content { font-size: 14px; }
 
-.info-panel .meta-content { font-size: 14px; }
+  & .btn-cta {
+    width: 100%;
+    padding: 8px 16px;
+    height: 40px;
+    font-size: 14px;
+    background: rgba(0,0,0, .9);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+    transition: background .25s;
 
-.info-panel .btn-cta {
-  width: 100%;
-  padding: 8px 16px;
-  height: 40px;
-  font-size: 14px;
-  background: rgba(0,0,0, .9);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
-  transition: background .25s ease;
-}
+    &:hover { background: rgba(0,0,0, .75); }
+  }
 
-.info-panel .btn-cta:hover { background: rgba(0,0,0, .75); }
+  & .btn-close {
+    position: relative;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
 
-.info-panel .btn-close {
-  position: relative;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-
-/* Increase clickable area */
-.info-panel .btn-close::after {
-  position: absolute;
-  content: "";
-  top: -20px;
-  right: -20px;
-  left: -20px;
-  bottom: -20px;
 }
 
 @media screen and (max-width: 480px) {
