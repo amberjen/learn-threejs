@@ -43,7 +43,7 @@
 <img src="./demo/05-scroll-animation-v2.gif" alt="Scroll animation demo" width="480" >
 
 ## 06 Interactive Low Poly Planet
-<img src="./demo/06-lowpoly-planet-v2.png" alt="Low poly planet demo" width="480" >
+<img src="./demo/06-lowpoly-planet-v3.png" alt="Low poly planet demo" width="480" >
 <img src="./demo/06-lowpoly-planet.gif" alt="Low poly planet demo" width="480" >
 
 - Model created using Blender (inspired by Polygon Runway)
