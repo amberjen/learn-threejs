@@ -76,7 +76,8 @@ const loadingManager = new THREE.LoadingManager(
         .to('.webgl', { opacity: 1 }, '<')
         .to(overlayMaterial.uniforms.uAlpha, { duration: 3, value: 0 })
         .to('h1', { opacity: 1, duration: 3 }, '<')
-        .to('h2', { opacity: 1, duration: 3 }, '<');
+        .to('h2', { opacity: 1, duration: 3 }, '<')
+        .to('.disclaimer', { opacity: 1, duration: 3 }, '<');
       }, 500);
 
       window.setTimeout(()=> {
