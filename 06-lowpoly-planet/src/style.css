@@ -43,8 +43,8 @@ h2 {
   left: 2%;
   bottom: 2%;
   font-weight: 500;
-  font-size: 14px;
-  line-height: 1.2;
+  font-size: 12px;
+  line-height: 1.1;
   text-transform: uppercase;
   color: rgba(255, 255, 255, .5);
 }
@@ -126,6 +126,8 @@ h2,
   top: 0;
   right: -320px;
   width: 320px;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   color: rgba(0, 0, 0, .8);
   background: #fff;
@@ -148,7 +150,13 @@ h2,
   object-fit: cover;
 }
 
-.info-panel .panel-body { padding: 16px 24px; }
+.info-panel .panel-body { 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 24px 24px; 
+  height: 100%;
+}
 
 .info-panel .panel-title {
   margin-bottom: 8px;
