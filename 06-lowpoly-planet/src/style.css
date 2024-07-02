@@ -213,6 +213,16 @@ h2,
     cursor: pointer;
     background: none;
     border: none;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: -24px;
+      right: -24px;
+      top: -24px;
+      bottom: -24px;
+
+    }
   }
 
 }
